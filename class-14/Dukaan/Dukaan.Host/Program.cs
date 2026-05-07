@@ -10,6 +10,12 @@ using Dukaan.Infrastructure.Data.Services;
 using Dukaan.Infrastructure.Data.DbContext;
 using Dukaan.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+<<<<<<< HEAD:class-14/Dukaan/Dukaan.Host/Program.cs
+=======
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Dukaan.Application.Interfaces;
+>>>>>>> d7678a376375ae8e3cf5ab90f33090dc0a12175b:class-13/Dukaan/Program.cs
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,10 +47,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+<<<<<<< HEAD:class-14/Dukaan/Dukaan.Host/Program.cs
+=======
+
+>>>>>>> d7678a376375ae8e3cf5ab90f33090dc0a12175b:class-13/Dukaan/Program.cs
 // Register application-specific services and repositories
 builder.Services.AddScoped<TenantService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Registers the generic repository
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Register OpenAPI (Swagger) for API documentation
