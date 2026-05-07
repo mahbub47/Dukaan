@@ -1,12 +1,6 @@
-<<<<<<< HEAD:class-14/Dukaan/Dukaan.Host/Controllers/AuthController.cs
 using Dukaan.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Dukaan.Application.Interfaces;
-=======
-﻿using Dukaan.Application.Dtos;
-using Dukaan.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
->>>>>>> d7678a376375ae8e3cf5ab90f33090dc0a12175b:class-13/Dukaan/Host/Controllers/AuthController.cs
 
 namespace Dukaan.Host.Controllers;
 
@@ -43,8 +37,4 @@ public class AuthController(IAuthService authService) : ControllerBase
             return Unauthorized(ex.Message);
         }
     }
-<<<<<<< HEAD:class-14/Dukaan/Dukaan.Host/Controllers/AuthController.cs
 }
-=======
-}
->>>>>>> d7678a376375ae8e3cf5ab90f33090dc0a12175b:class-13/Dukaan/Host/Controllers/AuthController.cs
