@@ -1,53 +1,18 @@
-using System.Text;
-using Dukaan.Application.Interfaces;
-using Dukaan.Application.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using Dukaan.Infrastructure.Services;
-using Dukaan.Infrastructure.Data.Model;
-using Dukaan.Infrastructure.Data.Services;
+using Dukaan.Application;
+using Dukaan.Infrastructure;
 using Dukaan.Infrastructure.Data.DbContext;
-using Dukaan.Infrastructure.Data.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // --- 1. Service Registration Section ---
-// This is where we register dependencies for the built-in Dependency Injection (DI) container.
+// This is where we register dependencies for the built-in Dependency Injection (DI) container
 
-// Register the Database Context with PostgreSQL support
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+// Register infrastructure services (like DbContext, Identity, repositories) from the Infrastructure project
+builder.Services.AddInfrastructure(builder.Configuration);
 
-// Register ASP.NET Core Identity for authentication
-builder.Services.AddIdentity<Merchant, IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-// Default authentication scheme and JWT authentication configuration
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
-        };
-    });
-
-// Register application-specific services and repositories
-builder.Services.AddScoped<TenantService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); // Registers the generic repository
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
-builder.Services.AddScoped<IAuthService, AuthService>();
+// Register application services (like TenantService, AuthService) from the Application project
+builder.Services.AddApplication();
 
 // Register OpenAPI (Swagger) for API documentation
 builder.Services.AddOpenApi();

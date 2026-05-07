@@ -1,1 +1,15 @@
-// 
+# Dukaan.Host
+
+// No packages needed yet
+
+# Dukaan.Application
+
+dotnet add package Microsoft.Extensions.Configuration.Abstractions
+dotnet add package Microsoft.Extensions.DependencyInjection.Abstractions 
+
+# Dukaan.Infrastructure
+
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
